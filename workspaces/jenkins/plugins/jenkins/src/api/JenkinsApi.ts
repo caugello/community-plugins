@@ -133,6 +133,15 @@ export interface JenkinsApi {
     jobFullName: string;
     buildNumber: string;
   }): Promise<void>;
+
+  /**
+   * Gets the consoleText for a single build
+   */
+  getBuildConsoleText(options: {
+    entity: CompoundEntityRef;
+    jobFullName: string;
+    buildNumber: string;
+  }): Promise<string>;
 }
 
 export class JenkinsClient implements JenkinsApi {
@@ -192,7 +201,7 @@ export class JenkinsClient implements JenkinsApi {
     )}/${encodeURIComponent(buildNumber)}`;
 
     const response = await this.fetchApi.fetch(url);
-
+    const test = await this.getBuildConsoleText(options);
     return (await response.json()).build;
   }
 
@@ -233,5 +242,24 @@ export class JenkinsClient implements JenkinsApi {
     const response = await this.fetchApi.fetch(url);
 
     return (await response.json()).build;
+  }
+
+  async getBuildConsoleText(options: {
+    entity: CompoundEntityRef;
+    jobFullName: string;
+    buildNumber: string;
+  }): Promise<string> {
+    const { entity, jobFullName, buildNumber } = options;
+    const url = `${await this.discoveryApi.getBaseUrl(
+      'jenkins',
+    )}/v1/entity/${encodeURIComponent(entity.namespace)}/${encodeURIComponent(
+      entity.kind,
+    )}/${encodeURIComponent(entity.name)}/job/${encodeURIComponent(
+      jobFullName,
+    )}/${encodeURIComponent(buildNumber)}/consoleText`;
+
+    const response = await this.fetchApi.fetch(url);
+
+    return await response.json();
   }
 }
