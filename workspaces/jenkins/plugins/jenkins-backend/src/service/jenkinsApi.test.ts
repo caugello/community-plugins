@@ -59,6 +59,10 @@ describe('JenkinsApi', () => {
   const jenkinsApi = new JenkinsApiImpl(fakePermissionApi);
   const mockFetch = fetch as jest.MockedFunction<typeof fetch>;
 
+  beforeEach(() => {
+    mockFetch.mockReset();
+  });
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -788,6 +792,30 @@ describe('JenkinsApi', () => {
       await jenkinsApi.getJobBuilds(jenkinsInfo, fullJobName);
       expect(mockFetch).toHaveBeenCalledWith(
         'https://jenkins.example.com/job/test/job/folder/job/depth/job/foo/api/json?tree=name,description,url,fullName,displayName,fullDisplayName,inQueue,builds[*]',
+        { headers: { headerName: 'headerValue' }, method: 'get' },
+      );
+    });
+  });
+
+  describe('getBuildConsoleText', () => {
+    it('should return the console text for a build', async () => {
+      const mockedConsoleText = 'Build Ran';
+      mockFetch.mockResolvedValueOnce({
+        status: 200,
+        text: async () => {
+          return mockedConsoleText;
+        },
+      } as unknown as Response);
+
+      const consoleText = await jenkinsApi.getBuildConsoleText(
+        jenkinsInfo,
+        jobFullName,
+        buildNumber,
+      );
+
+      expect(consoleText).toBe('Build Ran');
+      expect(mockFetch).toHaveBeenCalledWith(
+        'https://jenkins.example.com/job/example-jobName/job/foo/19/consoleText',
         { headers: { headerName: 'headerValue' }, method: 'get' },
       );
     });
