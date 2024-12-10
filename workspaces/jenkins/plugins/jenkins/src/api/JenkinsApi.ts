@@ -201,7 +201,7 @@ export class JenkinsClient implements JenkinsApi {
     )}/${encodeURIComponent(buildNumber)}`;
 
     const response = await this.fetchApi.fetch(url);
-    const test = await this.getBuildConsoleText(options);
+
     return (await response.json()).build;
   }
 
