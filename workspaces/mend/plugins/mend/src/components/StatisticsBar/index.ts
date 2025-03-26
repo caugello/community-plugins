@@ -1,1 +1,0 @@
-export { StatisticsBar } from './StatisticsBar';

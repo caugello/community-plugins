@@ -1,5 +1,0 @@
-**/templates/**
-dist-dynamic
-dist-scalprum
-!.eslintrc.js
-!.prettierrc.js
