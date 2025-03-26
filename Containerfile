@@ -16,6 +16,8 @@ USER root
 # for making the build work. Consider making this COPY statement a little more selective.
 COPY . .
 
+# 24 GB
+
 RUN find -name node_modules -type d -exec rm -rf {} +
 
 ENV DIR_PLUGIN_REDHAT_ARGOCD="workspaces/redhat-argocd"
