@@ -1,8 +1,0 @@
-.bs-topology-wrapper {
-  height: 100%;
-}
-
-.bs-topology-wrapper > div,
-.bs-topology-wrapper > div:last-child {
-  padding: 16px;
-}

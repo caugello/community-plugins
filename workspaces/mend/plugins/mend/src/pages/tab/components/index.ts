@@ -1,1 +1,0 @@
-export { FindingTable } from './FindingTable';

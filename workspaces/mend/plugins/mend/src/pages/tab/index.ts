@@ -1,1 +1,0 @@
-export { MendTab } from './TabProvider';

@@ -1,7 +1,0 @@
-.bs-topology-decorator__link:hover {
-  text-decoration: none;
-}
-.bs-topology-decorator:hover,
-.bs-topology-decorator:active {
-  color: var(--pf-t--global--text--color--link--hover);
-}
