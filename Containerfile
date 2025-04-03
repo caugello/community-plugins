@@ -6,7 +6,7 @@
 #
 # Run this from the top-level directory (not from a workspace). There's some top-level files
 # that are required.
-FROM registry.redhat.io/ubi9/nodejs-20:latest AS builder
+FROM registry.redhat.io/ubi9/nodejs-20:latest@sha256:8d8ab723e421f7303b51de36317a5632e7b161a016cd76a214f993124c5b1a95 AS builder
 
 WORKDIR /plugin-workspace
 
